@@ -1,0 +1,24 @@
+{
+  "name": "Moonlight — IT Solutions, Consulting & Marketing",
+  "short_name": "Moonlight",
+  "description": "Software house portuguesa: Software Development, BI, IoT/AR/VR, Big Data e produtos proprietários.",
+  "start_url": "/home",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fafafb",
+  "theme_color": "#6d28d9",
+  "lang": "pt",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "641x648",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
