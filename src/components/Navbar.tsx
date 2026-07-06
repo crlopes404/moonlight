@@ -3,18 +3,21 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useTheme } from "@/lib/theme";
+import { getLocale, setLocale } from "@/paraglide/runtime";
+import { m } from "@/paraglide/messages";
 
 const links = [
-  { to: "/home", label: "Início" },
-  { to: "/quem-somos", label: "Quem Somos" },
-  { to: "/servicos", label: "Serviços" },
-  { to: "/produtos", label: "Produtos" },
-  { to: "/case-studies", label: "Cases" },
-  { to: "/contacto", label: "Contacto" },
+  { to: "/$locale/home", label: m.nav_inicio },
+  { to: "/$locale/quem-somos", label: m.nav_quem_somos },
+  { to: "/$locale/servicos", label: m.nav_servicos },
+  { to: "/$locale/produtos", label: m.nav_produtos },
+  { to: "/$locale/case-studies", label: m.nav_cases },
+  { to: "/$locale/contacto", label: m.nav_contacto },
 ] as const;
 
 export function Navbar() {
   const { theme, toggle } = useTheme();
+  const locale = getLocale();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -51,19 +54,20 @@ export function Navbar() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           {/* Always-on glass: sticky blur prevents content bleeding through in light mode */}
           <div className={`flex items-center justify-between rounded-2xl md:rounded-full px-4 md:px-6 py-2.5 nav-glass transition-all duration-500 ${scrolled ? "neon-shadow scale-[0.99]" : ""}`}>
-            <Link to="/home" className="flex items-center gap-2.5 group shrink-0" aria-label="Moonlight — início">
+            <Link to="/$locale/home" params={{ locale }} className="flex items-center gap-2.5 group shrink-0" aria-label={m.nav_aria_home()}>
               <Logo />
               <span className="font-display text-lg tracking-tight">
                 Moonlight<span className="text-primary">.</span>
               </span>
             </Link>
 
-            <nav className="hidden md:flex items-center gap-0.5" aria-label="Principal">
+            <nav className="hidden md:flex items-center gap-0.5" aria-label={m.nav_aria_main()}>
               {links.map((l) => (
                 <Link
                   key={l.to}
                   to={l.to}
-                  activeOptions={{ exact: l.to === "/home" }}
+                  params={{ locale }}
+                  activeOptions={{ exact: l.to === "/$locale/home" }}
                   className="relative px-3.5 py-2 text-sm font-medium text-muted-foreground rounded-full transition-colors duration-200 hover:text-foreground [&.active]:text-foreground"
                 >
                   {({ isActive }) => (
@@ -75,7 +79,7 @@ export function Navbar() {
                           className="absolute inset-0 rounded-full bg-primary/12 ring-1 ring-primary/25"
                         />
                       )}
-                      <span className="relative z-10">{l.label}</span>
+                      <span className="relative z-10">{l.label()}</span>
                     </>
                   )}
                 </Link>
@@ -83,8 +87,9 @@ export function Navbar() {
             </nav>
 
             <div className="flex items-center gap-2 shrink-0">
+              <LangToggle />
               <ThemeToggle theme={theme} toggle={toggle} />
-              <button className="md:hidden text-foreground p-2 -mr-1" onClick={() => setOpen(true)} aria-label="Abrir menu">
+              <button className="md:hidden text-foreground p-2 -mr-1" onClick={() => setOpen(true)} aria-label={m.nav_aria_open_menu()}>
                 <Menu className="size-5" />
               </button>
             </div>
@@ -104,18 +109,19 @@ export function Navbar() {
               className="absolute inset-0 flex flex-col p-8"
             >
               <div className="flex justify-end">
-                <button onClick={() => setOpen(false)} className="p-2" aria-label="Close"><X className="size-6" /></button>
+                <button onClick={() => setOpen(false)} className="p-2" aria-label={m.nav_aria_close()}><X className="size-6" /></button>
               </div>
-              <nav className="mt-12 flex flex-col gap-6" aria-label="Mobile">
+              <nav className="mt-12 flex flex-col gap-6" aria-label={m.nav_aria_mobile()}>
                 {links.map((l, i) => (
                   <motion.div key={l.to} initial={{ x: 40, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.1 + i * 0.05 }}>
                     <Link
                       to={l.to}
-                      activeOptions={{ exact: l.to === "/home" }}
+                      params={{ locale }}
+                      activeOptions={{ exact: l.to === "/$locale/home" }}
                       onClick={() => setOpen(false)}
                       className="text-4xl font-display tracking-tight text-muted-foreground transition-colors [&.active]:text-foreground [&.active]:[text-shadow:0_0_30px_var(--glow)]"
                     >
-                      {l.label}
+                      {l.label()}
                     </Link>
                   </motion.div>
                 ))}
@@ -146,12 +152,31 @@ function Logo() {
   );
 }
 
+function LangToggle() {
+  const active = getLocale();
+  return (
+    <div className="flex items-center rounded-full glass border border-border/60 overflow-hidden font-mono text-[11px]" aria-label="Idioma / Language">
+      {(["pt", "en"] as const).map((l) => (
+        <button
+          key={l}
+          onClick={() => { if (l !== active) setLocale(l); }}
+          aria-label={l === "pt" ? "Português" : "English"}
+          aria-pressed={l === active}
+          className={`px-2.5 py-1.5 uppercase tracking-wider transition-colors ${l === active ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
+        >
+          {l}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 function ThemeToggle({ theme, toggle }: { theme: "dark" | "light"; toggle: () => void }) {
   return (
     <button
       data-magnetic
       onClick={toggle}
-      aria-label="Toggle theme"
+      aria-label={m.nav_aria_toggle_theme()}
       className="relative h-9 w-16 rounded-full glass border border-border/60 overflow-hidden"
     >
       <motion.div

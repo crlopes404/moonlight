@@ -2,6 +2,7 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { paraglideMiddleware } from "./paraglide/server";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -70,18 +71,25 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
-    try {
-      const handler = await getServerEntry();
-      const response = await handler.fetch(request, env, ctx);
-      return withSecurityHeaders(await normalizeCatastrophicSsrResponse(response));
-    } catch (error) {
-      console.error(error);
-      return withSecurityHeaders(
-        new Response(renderErrorPage(), {
-          status: 500,
-          headers: { "content-type": "text/html; charset=utf-8" },
-        }),
-      );
-    }
+    // Paraglide sets the per-request locale (via AsyncLocalStorage) from the URL so
+    // getLocale() renders the right language during SSR. Routes are natively localized
+    // ("/$locale/…"), so the handler matches the incoming URL directly (pass original
+    // request). The middleware also redirects un-prefixed document URLs (e.g. "/home"
+    // → "/pt/home", "/" → detected locale).
+    return paraglideMiddleware(request, async () => {
+      try {
+        const handler = await getServerEntry();
+        const response = await handler.fetch(request, env, ctx);
+        return withSecurityHeaders(await normalizeCatastrophicSsrResponse(response));
+      } catch (error) {
+        console.error(error);
+        return withSecurityHeaders(
+          new Response(renderErrorPage(), {
+            status: 500,
+            headers: { "content-type": "text/html; charset=utf-8" },
+          }),
+        );
+      }
+    });
   },
 };

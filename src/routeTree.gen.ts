@@ -9,42 +9,19 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ServicosRouteImport } from './routes/servicos'
-import { Route as QuemSomosRouteImport } from './routes/quem-somos'
-import { Route as ProdutosRouteImport } from './routes/produtos'
-import { Route as HomeRouteImport } from './routes/home'
-import { Route as ContactoRouteImport } from './routes/contacto'
-import { Route as CaseStudiesRouteImport } from './routes/case-studies'
+import { Route as LocaleRouteRouteImport } from './routes/$locale/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
+import { Route as LocaleServicosRouteImport } from './routes/$locale/servicos'
+import { Route as LocaleQuemSomosRouteImport } from './routes/$locale/quem-somos'
+import { Route as LocaleProdutosRouteImport } from './routes/$locale/produtos'
+import { Route as LocaleHomeRouteImport } from './routes/$locale/home'
+import { Route as LocaleContactoRouteImport } from './routes/$locale/contacto'
+import { Route as LocaleCaseStudiesRouteImport } from './routes/$locale/case-studies'
 
-const ServicosRoute = ServicosRouteImport.update({
-  id: '/servicos',
-  path: '/servicos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const QuemSomosRoute = QuemSomosRouteImport.update({
-  id: '/quem-somos',
-  path: '/quem-somos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProdutosRoute = ProdutosRouteImport.update({
-  id: '/produtos',
-  path: '/produtos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HomeRoute = HomeRouteImport.update({
-  id: '/home',
-  path: '/home',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactoRoute = ContactoRouteImport.update({
-  id: '/contacto',
-  path: '/contacto',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CaseStudiesRoute = CaseStudiesRouteImport.update({
-  id: '/case-studies',
-  path: '/case-studies',
+const LocaleRouteRoute = LocaleRouteRouteImport.update({
+  id: '/$locale',
+  path: '/$locale',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -52,117 +29,122 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LocaleIndexRoute = LocaleIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleServicosRoute = LocaleServicosRouteImport.update({
+  id: '/servicos',
+  path: '/servicos',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleQuemSomosRoute = LocaleQuemSomosRouteImport.update({
+  id: '/quem-somos',
+  path: '/quem-somos',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleProdutosRoute = LocaleProdutosRouteImport.update({
+  id: '/produtos',
+  path: '/produtos',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleHomeRoute = LocaleHomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleContactoRoute = LocaleContactoRouteImport.update({
+  id: '/contacto',
+  path: '/contacto',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleCaseStudiesRoute = LocaleCaseStudiesRouteImport.update({
+  id: '/case-studies',
+  path: '/case-studies',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/case-studies': typeof CaseStudiesRoute
-  '/contacto': typeof ContactoRoute
-  '/home': typeof HomeRoute
-  '/produtos': typeof ProdutosRoute
-  '/quem-somos': typeof QuemSomosRoute
-  '/servicos': typeof ServicosRoute
+  '/$locale': typeof LocaleRouteRouteWithChildren
+  '/$locale/case-studies': typeof LocaleCaseStudiesRoute
+  '/$locale/contacto': typeof LocaleContactoRoute
+  '/$locale/home': typeof LocaleHomeRoute
+  '/$locale/produtos': typeof LocaleProdutosRoute
+  '/$locale/quem-somos': typeof LocaleQuemSomosRoute
+  '/$locale/servicos': typeof LocaleServicosRoute
+  '/$locale/': typeof LocaleIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/case-studies': typeof CaseStudiesRoute
-  '/contacto': typeof ContactoRoute
-  '/home': typeof HomeRoute
-  '/produtos': typeof ProdutosRoute
-  '/quem-somos': typeof QuemSomosRoute
-  '/servicos': typeof ServicosRoute
+  '/$locale/case-studies': typeof LocaleCaseStudiesRoute
+  '/$locale/contacto': typeof LocaleContactoRoute
+  '/$locale/home': typeof LocaleHomeRoute
+  '/$locale/produtos': typeof LocaleProdutosRoute
+  '/$locale/quem-somos': typeof LocaleQuemSomosRoute
+  '/$locale/servicos': typeof LocaleServicosRoute
+  '/$locale': typeof LocaleIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/case-studies': typeof CaseStudiesRoute
-  '/contacto': typeof ContactoRoute
-  '/home': typeof HomeRoute
-  '/produtos': typeof ProdutosRoute
-  '/quem-somos': typeof QuemSomosRoute
-  '/servicos': typeof ServicosRoute
+  '/$locale': typeof LocaleRouteRouteWithChildren
+  '/$locale/case-studies': typeof LocaleCaseStudiesRoute
+  '/$locale/contacto': typeof LocaleContactoRoute
+  '/$locale/home': typeof LocaleHomeRoute
+  '/$locale/produtos': typeof LocaleProdutosRoute
+  '/$locale/quem-somos': typeof LocaleQuemSomosRoute
+  '/$locale/servicos': typeof LocaleServicosRoute
+  '/$locale/': typeof LocaleIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/case-studies'
-    | '/contacto'
-    | '/home'
-    | '/produtos'
-    | '/quem-somos'
-    | '/servicos'
+    | '/$locale'
+    | '/$locale/case-studies'
+    | '/$locale/contacto'
+    | '/$locale/home'
+    | '/$locale/produtos'
+    | '/$locale/quem-somos'
+    | '/$locale/servicos'
+    | '/$locale/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/case-studies'
-    | '/contacto'
-    | '/home'
-    | '/produtos'
-    | '/quem-somos'
-    | '/servicos'
+    | '/$locale/case-studies'
+    | '/$locale/contacto'
+    | '/$locale/home'
+    | '/$locale/produtos'
+    | '/$locale/quem-somos'
+    | '/$locale/servicos'
+    | '/$locale'
   id:
     | '__root__'
     | '/'
-    | '/case-studies'
-    | '/contacto'
-    | '/home'
-    | '/produtos'
-    | '/quem-somos'
-    | '/servicos'
+    | '/$locale'
+    | '/$locale/case-studies'
+    | '/$locale/contacto'
+    | '/$locale/home'
+    | '/$locale/produtos'
+    | '/$locale/quem-somos'
+    | '/$locale/servicos'
+    | '/$locale/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CaseStudiesRoute: typeof CaseStudiesRoute
-  ContactoRoute: typeof ContactoRoute
-  HomeRoute: typeof HomeRoute
-  ProdutosRoute: typeof ProdutosRoute
-  QuemSomosRoute: typeof QuemSomosRoute
-  ServicosRoute: typeof ServicosRoute
+  LocaleRouteRoute: typeof LocaleRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/servicos': {
-      id: '/servicos'
-      path: '/servicos'
-      fullPath: '/servicos'
-      preLoaderRoute: typeof ServicosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/quem-somos': {
-      id: '/quem-somos'
-      path: '/quem-somos'
-      fullPath: '/quem-somos'
-      preLoaderRoute: typeof QuemSomosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/produtos': {
-      id: '/produtos'
-      path: '/produtos'
-      fullPath: '/produtos'
-      preLoaderRoute: typeof ProdutosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/home': {
-      id: '/home'
-      path: '/home'
-      fullPath: '/home'
-      preLoaderRoute: typeof HomeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contacto': {
-      id: '/contacto'
-      path: '/contacto'
-      fullPath: '/contacto'
-      preLoaderRoute: typeof ContactoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/case-studies': {
-      id: '/case-studies'
-      path: '/case-studies'
-      fullPath: '/case-studies'
-      preLoaderRoute: typeof CaseStudiesRouteImport
+    '/$locale': {
+      id: '/$locale'
+      path: '/$locale'
+      fullPath: '/$locale'
+      preLoaderRoute: typeof LocaleRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -172,17 +154,85 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$locale/': {
+      id: '/$locale/'
+      path: '/'
+      fullPath: '/$locale/'
+      preLoaderRoute: typeof LocaleIndexRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/servicos': {
+      id: '/$locale/servicos'
+      path: '/servicos'
+      fullPath: '/$locale/servicos'
+      preLoaderRoute: typeof LocaleServicosRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/quem-somos': {
+      id: '/$locale/quem-somos'
+      path: '/quem-somos'
+      fullPath: '/$locale/quem-somos'
+      preLoaderRoute: typeof LocaleQuemSomosRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/produtos': {
+      id: '/$locale/produtos'
+      path: '/produtos'
+      fullPath: '/$locale/produtos'
+      preLoaderRoute: typeof LocaleProdutosRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/home': {
+      id: '/$locale/home'
+      path: '/home'
+      fullPath: '/$locale/home'
+      preLoaderRoute: typeof LocaleHomeRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/contacto': {
+      id: '/$locale/contacto'
+      path: '/contacto'
+      fullPath: '/$locale/contacto'
+      preLoaderRoute: typeof LocaleContactoRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/case-studies': {
+      id: '/$locale/case-studies'
+      path: '/case-studies'
+      fullPath: '/$locale/case-studies'
+      preLoaderRoute: typeof LocaleCaseStudiesRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
   }
 }
 
+interface LocaleRouteRouteChildren {
+  LocaleCaseStudiesRoute: typeof LocaleCaseStudiesRoute
+  LocaleContactoRoute: typeof LocaleContactoRoute
+  LocaleHomeRoute: typeof LocaleHomeRoute
+  LocaleProdutosRoute: typeof LocaleProdutosRoute
+  LocaleQuemSomosRoute: typeof LocaleQuemSomosRoute
+  LocaleServicosRoute: typeof LocaleServicosRoute
+  LocaleIndexRoute: typeof LocaleIndexRoute
+}
+
+const LocaleRouteRouteChildren: LocaleRouteRouteChildren = {
+  LocaleCaseStudiesRoute: LocaleCaseStudiesRoute,
+  LocaleContactoRoute: LocaleContactoRoute,
+  LocaleHomeRoute: LocaleHomeRoute,
+  LocaleProdutosRoute: LocaleProdutosRoute,
+  LocaleQuemSomosRoute: LocaleQuemSomosRoute,
+  LocaleServicosRoute: LocaleServicosRoute,
+  LocaleIndexRoute: LocaleIndexRoute,
+}
+
+const LocaleRouteRouteWithChildren = LocaleRouteRoute._addFileChildren(
+  LocaleRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CaseStudiesRoute: CaseStudiesRoute,
-  ContactoRoute: ContactoRoute,
-  HomeRoute: HomeRoute,
-  ProdutosRoute: ProdutosRoute,
-  QuemSomosRoute: QuemSomosRoute,
-  ServicosRoute: ServicosRoute,
+  LocaleRouteRoute: LocaleRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

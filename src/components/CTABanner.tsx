@@ -1,8 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { getLocale } from "@/paraglide/runtime";
+import { m } from "@/paraglide/messages";
 
-export function CTABanner({ eyebrow = "Pronto?", title = "Vamos desenhar o teu próximo sistema.", cta = "Iniciar projeto", to = "/contacto" }: { eyebrow?: string; title?: string; cta?: string; to?: string }) {
+export function CTABanner({ eyebrow = m.cta_default_eyebrow(), title = m.cta_default_title(), cta = m.cta_default_cta(), to = "/$locale/contacto" }: { eyebrow?: string; title?: string; cta?: string; to?: string }) {
+  const locale = getLocale();
   return (
     <section className="relative py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -50,6 +53,7 @@ export function CTABanner({ eyebrow = "Pronto?", title = "Vamos desenhar o teu p
             {/* Premium primary CTA */}
             <Link
               to={to}
+              params={{ locale }}
               data-magnetic
               className="group/btn relative inline-flex shrink-0 items-center gap-3 self-start rounded-full bg-white px-7 py-4 text-sm font-semibold text-primary shadow-[0_14px_44px_-10px_rgba(0,0,0,0.5)] transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98] md:self-auto"
             >

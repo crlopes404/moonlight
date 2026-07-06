@@ -7,6 +7,8 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { getLocale } from "@/paraglide/runtime";
+import { m } from "@/paraglide/messages";
 import { ThemeProvider } from "@/lib/theme";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -25,7 +27,7 @@ function NotFoundComponent() {
           The page you're looking for doesn't exist or has been moved.
         </p>
         <div className="mt-6">
-          <Link to="/home" className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">
+          <Link to="/$locale/home" params={{ locale: getLocale() }} className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">
             Go home
           </Link>
         </div>
@@ -46,7 +48,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
           <button onClick={() => { router.invalidate(); reset(); }} className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90">
             Try again
           </button>
-          <a href="/home" className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground hover:bg-accent">
+          <a href={`/${getLocale()}/home`} className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground hover:bg-accent">
             Go home
           </a>
         </div>
@@ -60,14 +62,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Moonlight — IT Solutions, Consulting & Marketing desde 1998" },
-      { name: "description", content: "Software house portuguesa: Software Development, BI, IoT/AR/VR, Big Data e produtos proprietários." },
+      { title: m.meta_default_title() },
+      { name: "description", content: m.meta_default_desc() },
       { name: "author", content: "Moonlight" },
       { property: "og:title", content: "Moonlight — O futuro não espera" },
       { property: "og:description", content: "Tecnologia de próxima geração desde 1998." },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Moonlight" },
-      { property: "og:locale", content: "pt_PT" },
+      { property: "og:locale", content: getLocale() === "en" ? "en_US" : "pt_PT" },
+      { property: "og:locale:alternate", content: getLocale() === "en" ? "pt_PT" : "en_US" },
       { property: "og:image", content: "https://www.moonlight.pt/apple-touch-icon.png" },
       { property: "og:image:alt", content: "Moonlight" },
       { name: "twitter:card", content: "summary" },
@@ -93,7 +96,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt">
+    <html lang={getLocale()}>
       <head>
         <HeadContent />
       </head>

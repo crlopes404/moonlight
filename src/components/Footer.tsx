@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { getLocale } from "@/paraglide/runtime";
+import { m } from "@/paraglide/messages";
 
 const socials = [
   {
@@ -21,6 +23,7 @@ const socials = [
 ];
 
 export function Footer() {
+  const locale = getLocale();
   return (
     <footer className="relative pt-20 pb-12 overflow-hidden">
       <div
@@ -38,10 +41,9 @@ export function Footer() {
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="grid md:grid-cols-4 gap-10 pt-12 border-t border-border/50">
           <div className="md:col-span-2">
-            <Link to="/home" className="font-display text-xl">Moonlight<span className="text-primary">.</span></Link>
+            <Link to="/$locale/home" params={{ locale }} className="font-display text-xl">Moonlight<span className="text-primary">.</span></Link>
             <p className="mt-3 text-sm text-muted-foreground max-w-xs">
-              Moonlight Comunicação Global LDA. Desde 1998 a construir o futuro —
-              software, BI e consultoria. <span className="text-foreground">O futuro não espera.</span>
+              {m.footer_tagline()} <span className="text-foreground">{m.footer_tagline_accent()}</span>
             </p>
             <motion.a
               href="mailto:suporte@moonlight.pt"
@@ -55,17 +57,17 @@ export function Footer() {
             </motion.a>
           </div>
           <div>
-            <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-4">Navegar</div>
+            <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-4">{m.footer_nav_heading()}</div>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/quem-somos" className="hover:text-primary transition-colors">Quem Somos</Link></li>
-              <li><Link to="/servicos" className="hover:text-primary transition-colors">Serviços</Link></li>
-              <li><Link to="/produtos" className="hover:text-primary transition-colors">Produtos</Link></li>
-              <li><Link to="/case-studies" className="hover:text-primary transition-colors">Case Studies</Link></li>
-              <li><Link to="/contacto" className="hover:text-primary transition-colors">Contacto</Link></li>
+              <li><Link to="/$locale/quem-somos" params={{ locale }} className="hover:text-primary transition-colors">{m.nav_quem_somos()}</Link></li>
+              <li><Link to="/$locale/servicos" params={{ locale }} className="hover:text-primary transition-colors">{m.nav_servicos()}</Link></li>
+              <li><Link to="/$locale/produtos" params={{ locale }} className="hover:text-primary transition-colors">{m.nav_produtos()}</Link></li>
+              <li><Link to="/$locale/case-studies" params={{ locale }} className="hover:text-primary transition-colors">{m.footer_link_case_studies()}</Link></li>
+              <li><Link to="/$locale/contacto" params={{ locale }} className="hover:text-primary transition-colors">{m.nav_contacto()}</Link></li>
             </ul>
           </div>
           <div>
-            <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-4">Sede</div>
+            <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-4">{m.footer_hq_heading()}</div>
             <p className="text-sm">
               Portugal<br />
               <a href="mailto:suporte@moonlight.pt" className="hover:text-primary transition-colors">suporte@moonlight.pt</a><br />

@@ -1,11 +1,14 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { ClientOnly, useNavigate } from "@tanstack/react-router";
+import { getLocale } from "@/paraglide/runtime";
+import { m } from "@/paraglide/messages";
 import { MagneticButton } from "./MagneticButton";
 import { MoonScene } from "./MoonScene";
 
 export function Hero() {
   const navigate = useNavigate();
+  const locale = getLocale();
   return (
     <section id="top" className="relative min-h-screen w-full overflow-hidden">
       {/* Animated grid */}
@@ -51,7 +54,7 @@ export function Hero() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs font-mono uppercase tracking-widest text-muted-foreground"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-            <span>Moonlight Comunicação Global · Est. 1998</span>
+            <span>{m.hero_badge()}</span>
             <Sparkles className="h-3 w-3 text-primary" />
           </motion.div>
 
@@ -61,8 +64,8 @@ export function Hero() {
             transition={{ delay: 0.4, duration: 1 }}
             className="mt-7 font-display font-semibold text-[clamp(2.8rem,7vw,6.5rem)] leading-[0.95] tracking-tight"
           >
-            <span className="block text-gradient">O Futuro</span>
-            <span className="block text-gradient-aurora">Não Espera</span>
+            <span className="block text-gradient">{m.hero_title_1()}</span>
+            <span className="block text-gradient-aurora">{m.hero_title_2()}</span>
           </motion.h1>
 
           <motion.p
@@ -71,10 +74,9 @@ export function Hero() {
             transition={{ delay: 0.8, duration: 1 }}
             className="mt-7 max-w-xl lead text-foreground/80 dark:text-muted-foreground text-balance mx-auto lg:mx-0"
           >
-            Software à medida, Business Intelligence e consultoria IT — desde{" "}
-            <span className="text-foreground font-medium">1998</span> a transformar empresas
-            do setor automóvel e enterprise com tecnologia que{" "}
-            <span className="text-foreground font-medium">antecipa o amanhã</span>.
+            {m.hero_p_1()}{" "}
+            <span className="text-foreground font-medium">1998</span> {m.hero_p_2()}{" "}
+            <span className="text-foreground font-medium">{m.hero_p_accent()}</span>.
           </motion.p>
 
           <motion.div
@@ -83,11 +85,11 @@ export function Hero() {
             transition={{ delay: 1.0, duration: 0.8 }}
             className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-4"
           >
-            <MagneticButton variant="primary" onClick={() => navigate({ to: "/contacto" })}>
-              Quero ser contactado <ArrowRight className="h-4 w-4" />
+            <MagneticButton variant="primary" onClick={() => navigate({ to: "/$locale/contacto", params: { locale } })}>
+              {m.hero_cta_primary()} <ArrowRight className="h-4 w-4" />
             </MagneticButton>
-            <MagneticButton variant="ghost" onClick={() => navigate({ to: "/produtos" })}>
-              Conhecer o B.Analytics
+            <MagneticButton variant="ghost" onClick={() => navigate({ to: "/$locale/produtos", params: { locale } })}>
+              {m.hero_cta_secondary()}
             </MagneticButton>
           </motion.div>
         </div>
@@ -102,7 +104,7 @@ export function Hero() {
           >
             <Sparkles className="size-4 text-primary" />
             <p className="mt-3 font-display text-lg leading-snug">
-              A tecnologia<br />é a nossa <span className="text-gradient">órbita</span>.
+              {m.hero_orbit_1()}<br />{m.hero_orbit_2()} <span className="text-gradient">{m.hero_orbit_accent()}</span>.
             </p>
           </motion.div>
         </div>
@@ -115,7 +117,7 @@ export function Hero() {
         transition={{ delay: 1.4, duration: 1 }}
         className="absolute bottom-10 inset-x-0 z-30 flex flex-wrap items-center justify-center gap-3 px-6"
       >
-        {["Desde 1998", "Software à medida", "B.Analytics", "Suporte SLA"].map((t) => (
+        {[m.hero_chip_since(), m.hero_chip_custom(), "B.Analytics", m.hero_chip_sla()].map((t) => (
           <div
             key={t}
             className="px-3 py-1.5 glass rounded-full text-[11px] font-mono uppercase tracking-wider text-muted-foreground"
