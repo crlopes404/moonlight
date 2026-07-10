@@ -30,17 +30,17 @@ export function Hero() {
       </div>
 
       {/* Corner HUD */}
-      <div className="absolute top-20 left-6 z-30 hidden lg:block font-mono text-[10px] uppercase tracking-widest text-muted-foreground/70">
+      <div className="absolute top-20 left-6 z-30 hidden lg:block font-mono text-[10px] uppercase tracking-widest text-muted-foreground/70 dark:text-muted-foreground">
         <div className="flex items-center gap-2">
           <span className="h-1 w-1 bg-primary rounded-full" /> SYS · Moonlight OS v2026
         </div>
-        <div className="mt-1 opacity-60">LAT 38.7223 · LON -9.1393</div>
+        <div className="mt-1 opacity-60 dark:opacity-80">LAT 38.7223 · LON -9.1393</div>
       </div>
-      <div className="absolute top-20 right-6 z-30 hidden lg:block font-mono text-[10px] uppercase tracking-widest text-muted-foreground/70 text-right">
+      <div className="absolute top-20 right-6 z-30 hidden lg:block font-mono text-[10px] uppercase tracking-widest text-muted-foreground/70 dark:text-muted-foreground text-right">
         <div>
           STATUS · <span className="text-emerald-400">ONLINE</span>
         </div>
-        <div className="mt-1 opacity-60">UPTIME 99.99%</div>
+        <div className="mt-1 opacity-60 dark:opacity-80">UPTIME 99.99%</div>
       </div>
 
       {/* Content — split: text left, moon (background) right */}

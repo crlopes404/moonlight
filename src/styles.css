@@ -56,7 +56,7 @@
   --surface-elev: oklch(0.22 0.04 285 / 0.7);
   --border: oklch(0.4 0.08 290 / 0.4);
   --muted: oklch(0.22 0.03 285);
-  --muted-foreground: oklch(0.7 0.03 280);
+  --muted-foreground: oklch(0.8 0.025 280);  /* 10.8:1 on bg; ≥4.5:1 even over the ambient glow */
   --primary: oklch(0.65 0.28 295);
   --primary-foreground: oklch(0.99 0 0);
   --accent: oklch(0.7 0.3 330);

@@ -157,7 +157,7 @@ function Home() {
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-5">
             {["BMW", "Volkswagen", "Stellantis", "Peugeot", "Audi", "Fiat Chrysler", "Rubisgás"].map((c) => (
-              <span key={c} className="font-display text-xl md:text-2xl tracking-tight text-foreground/55 hover:text-foreground transition-colors">
+              <span key={c} className="font-display text-xl md:text-2xl tracking-tight text-foreground/55 dark:text-foreground/70 hover:text-foreground transition-colors">
                 {c}
               </span>
             ))}
