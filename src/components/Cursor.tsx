@@ -43,20 +43,6 @@ export function Cursor() {
           boxShadow: "0 0 10px rgba(216, 197, 255, 0.25), 0 0 3px rgba(216, 197, 255, 0.2)",
         }}
       />
-      <div
-        ref={ring}
-        className="pointer-events-none fixed left-0 top-0 z-[9999] rounded-full transition-[width,height,margin,opacity] duration-200"
-        style={{
-          width: hover ? 56 : 32,
-          height: hover ? 56 : 32,
-          marginLeft: hover ? -28 : -16,
-          marginTop: hover ? -28 : -16,
-          border: "1px solid rgba(216, 197, 255, 0.25)",
-          backdropFilter: "invert(1) hue-rotate(180deg)",
-          mixBlendMode: "difference",
-          opacity: 0.85,
-        }}
-      />
     </>
   );
 }

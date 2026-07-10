@@ -178,6 +178,21 @@ node .output/server/index.mjs    # arranca o servidor de produção (porta 3000 
 - Assets com hash são servidos com `Cache-Control: public, max-age=31536000, immutable`.
 - `src/server.ts` aplica **headers de segurança** a todos os documentos HTML: HSTS, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy` e uma **CSP em modo Report-Only**.
 
+### Recomendações de produção
+- **Compressão:** o preset `node-server` não comprime respostas. Coloca um **reverse proxy / CDN** à frente (Nginx, Caddy, Cloudflare) para **gzip/brotli**.
+- **CSP:** a política está em `Content-Security-Policy-Report-Only`. Depois de validares que não há violações na consola, promove para `Content-Security-Policy` (enforcing) em `src/server.ts`.
+- **Imagens:** `public/moonhd.png` (~434 KB) pode ser otimizada (WebP/AVIF).
+- **Domínio:** o domínio canónico está fixado em `https://www.moonlight.pt` em `src/lib/seo.ts` e no `sitemap.xml` — atualiza se mudar.
+
+---
+
+## ⚠️ Por fazer / notas
+
+- **Formulário de contacto** (`src/routes/$locale/contacto.tsx`): atualmente mostra um `alert()` de confirmação e **não envia** os dados. Está previsto ligá-lo ao envio por email para `suporte@moonlight.pt` (via server function + SMTP/API de email, com credenciais em variáveis de ambiente).
+- **Links "Privacy" / "Cookies"** no footer são placeholders (`href="#"`) — apontar para as páginas legais quando existirem.
+- **PWA:** o `site.webmanifest` existe; para instalabilidade completa faltam ícones 192×192 e 512×512.
+
+---
 
 ## 📌 Convenções
 

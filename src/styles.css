@@ -78,7 +78,7 @@ html, body {
   color: var(--color-foreground);
   font-family: var(--font-display);
   -webkit-font-smoothing: antialiased;
-  cursor: none;
+  cursor: auto;
 }
 
 @media (max-width: 768px) {
